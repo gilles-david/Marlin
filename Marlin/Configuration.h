@@ -62,7 +62,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(Merto Bohan, Sidewinder X1)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Merto Bohan, SW-X1 - SKRv1.4 Turbo & TFT35, BLTouch, LGX Copperhead)" //GDA Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -140,7 +140,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Artillery SW-X1 T800 2311028"
+#define CUSTOM_MACHINE_NAME "Artillery SW-X1 T800 2311028" //GDA
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -624,14 +624,14 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 300 //GDA default 275 - 300 avec tete full metal. Idem sur lignes suivantes
-#define HEATER_1_MAXTEMP 300 //GDA
-#define HEATER_2_MAXTEMP 300 //GDA
-#define HEATER_3_MAXTEMP 300 //GDA
-#define HEATER_4_MAXTEMP 300 //GDA
-#define HEATER_5_MAXTEMP 300 //GDA
-#define HEATER_6_MAXTEMP 300 //GDA
-#define HEATER_7_MAXTEMP 300 //GDA
+#define HEATER_0_MAXTEMP 285 //GDA default 275 - 285+ 15 overshoot = 300 avec tete full metal. Idem sur lignes suivantes
+#define HEATER_1_MAXTEMP 285 //GDA
+#define HEATER_2_MAXTEMP 285 //GDA
+#define HEATER_3_MAXTEMP 285 //GDA
+#define HEATER_4_MAXTEMP 285 //GDA
+#define HEATER_5_MAXTEMP 285 //GDA
+#define HEATER_6_MAXTEMP 285 //GDA
+#define HEATER_7_MAXTEMP 285 //GDA
 #define BED_MAXTEMP      150
 #define CHAMBER_MAXTEMP  60
 
@@ -675,9 +675,9 @@
     #define DEFAULT_Ki_LIST {   1.14,   1.14 }
     #define DEFAULT_Kd_LIST {  46.57,  46.57 }
   #else
-    #define DEFAULT_Kp 23.9030 //GDA  default 14.58
-    #define DEFAULT_Ki 4.6549 //GDA default 1.14
-    #define DEFAULT_Kd 30.6854 //GDA default 46.57
+    #define DEFAULT_Kp 22.9183 //GDA Bondtech LGX Copperhead with nickel plated brass noozle -  default 14.58
+    #define DEFAULT_Ki 4.2758 //GDA default 1.14
+    #define DEFAULT_Kd 30.7105 //GDA default 46.57
   #endif
 #endif
 
@@ -759,9 +759,9 @@
   //#define PID_BED_DEBUG // Print Bed PID debug data to the serial port.
 
   // Sidewinder X1
-  #define DEFAULT_bedKp 24.9747 //GDA default 244.21
-  #define DEFAULT_bedKi 4.9406 //GDA default 45.87
-  #define DEFAULT_bedKd 84.1648 //GDA default 325.08
+  #define DEFAULT_bedKp 31.0608 //GDA Aluminium bed - default 244.21
+  #define DEFAULT_bedKi 2.9894 //GDA default 45.87
+  #define DEFAULT_bedKd 215.1585 //GDA default 325.08
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -1282,7 +1282,7 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+//#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN  //GDA comment for BLTouch on dedicated SKRv1.4 pin and stock endstops still in place
 
 // Force the use of the probe for Z-axis homing
 #define USE_PROBE_FOR_Z_HOMING //GDA uncomment
@@ -1302,7 +1302,7 @@
  *      - normally-closed switches to GND and D32.
  *      - normally-open switches to 5V and D32.
  */
-//#define Z_MIN_PROBE_PIN 32 // Pin 32 is the RAMPS default
+#define Z_MIN_PROBE_PIN P0_10 //GDA BLTouch dedicated port on SRK14T board - Pin 32 is the RAMPS default
 
 /**
  * Probe Type
@@ -1491,7 +1491,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { 35.5, -42, -2 }  //GDA Bondtech LGX extruder with Copperhead on custom mount plate - default { 10, 10, 0 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1703,7 +1703,7 @@
 
 // The size of the printable area
 #define X_BED_SIZE 305  //GDA default 300
-#define Y_BED_SIZE 305 //GDA defalut 310
+#define Y_BED_SIZE 305 //GDA default 310
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS -2
@@ -1779,11 +1779,11 @@
  * RAMPS-based boards use SERVO3_PIN for the first runout sensor.
  * For other boards you may need to define FIL_RUNOUT_PIN, FIL_RUNOUT2_PIN, etc.
  */
-//#define FILAMENT_RUNOUT_SENSOR
+#define FILAMENT_RUNOUT_SENSOR //GDA uncomment
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
   #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
   #define NUM_RUNOUT_SENSORS   1          // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
-
+  //define FIL_RUNOUT_PIN   //GDA Put Pin number and uncomment to activate, if different than default SKR14T wiring
   #define FIL_RUNOUT_STATE     LOW        // Pin state indicating that filament is NOT present.
   #define FIL_RUNOUT_PULLUP               // Use internal pullup for filament runout pins.
   //#define FIL_RUNOUT_PULLDOWN           // Use internal pulldown for filament runout pins.
@@ -2037,7 +2037,7 @@
 #define LCD_BED_TRAMMING //GDA uncomment
 
 #if ENABLED(LCD_BED_TRAMMING)
-  #define BED_TRAMMING_INSET_LFRB { 30, 30, 30, 30 } // (mm) Left, Front, Right, Back insets
+  #define BED_TRAMMING_INSET_LFRB { 55, 55, 55, 55 }    //GDA default { 30, 30, 30, 30 } - (mm) Left, Front, Right, Back insets
   #define BED_TRAMMING_HEIGHT      0.0        // (mm) Z height of nozzle at leveling points
   #define BED_TRAMMING_Z_HOP       4.0        // (mm) Z height of nozzle between leveling points
   //#define BED_TRAMMING_INCLUDE_CENTER       // Move to the center after the last corner
